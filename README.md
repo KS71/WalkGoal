@@ -1,79 +1,80 @@
 # 🚶‍♂️ WalkGoal
 
-En moderne, lynhurtig og brugervenlig Android-app (.apk) designet til at hjælpe dig med at tracke dine gåture, sætte personlige mål og holde styr på dem. Appen er bygget med fokus på et flot, responsivt design og en gnidningsfri brugeroplevelse på mobil.
+A modern, lightning-fast, and user-friendly Android app (.apk) designed to help you track your walks, set personal goals, and keep track of them. The app is built with a focus on a beautiful, responsive design and a seamless mobile user experience.
 
 ---
 
-## 📸 Skærmbilleder
+## 📸 Screenshots
 
 <div align="center">
   <img src="001.jpg" width="300" alt="Dashboard" />
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="002.jpg" width="300" alt="Log Gåtur" />
+  <img src="002.jpg" width="300" alt="Log Walk" />
 </div>
 <br />
 <div align="center">
-  <img src="003.jpg" width="300" alt="Historik" />
+  <img src="003.jpg" width="300" alt="History" />
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="004.jpg" width="300" alt="Indstillinger" />
+  <img src="004.jpg" width="300" alt="Settings" />
 </div>
 <br />
 <div align="center">
-  <img src="005.jpg" width="300" alt="Målsætning 1" />
+  <img src="005.jpg" width="300" alt="Goal Setup 1" />
   &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="006.jpg" width="300" alt="Målsætning 2" />
+  <img src="006.jpg" width="300" alt="Goal Setup 2" />
 </div>
 
 ---
 
-## ✨ Funktioner
+## ✨ Features
 
-- **📊 Dashboard:** Få det fulde overblik over dagens, ugens og månedens fremskridt direkte på forsiden.
-- **🎯 Målsætning:** Sæt personlige mål for, hvor meget du vil gå pr uge, måned og år, og følg med i, hvor tæt du er på at nå dem.
-- **📝 Log Gåtur:** Nem og hurtig registrering af distance du har gået for dine seneste gåture.
-- **📅 Historik:** Kommer i næste version.
-- **⚙️ Indstillinger:** Tilpas appen til dine behov og nem sletning af data.
-- **📱 Android App (.apk):** Bygget som en native app via Capacitor, lige til at installere på din Android-telefon.
+- **📊 Dashboard:** Get a full overview of your daily, weekly, and monthly progress directly on the front page.
+- **🎯 Goals:** Set personal goals for how much you want to walk per week, month, and year, and track how close you are to reaching them.
+- **📝 Log Walk:** Easy and quick logging of the distance you've walked on your latest trips.
+- **📅 History:** Coming in the next version.
+- **⚙️ Settings:** Customize the app to your needs and easily delete your data.
+- **📱 Android App (.apk):** Built as a native app via Capacitor, ready to install on your Android phone.
 
-## 🔒 Data & Privatliv
+## 🔒 Data & Privacy
 
-WalkGoal er bygget med 100% fokus på dit privatliv:
-- **Ingen Server:** Appen sender **ingen** data, logbøger eller personlige oplysninger til en server i skyen. 
-- **Dit Data Er Dit:** Alt hvad du indtaster (hvor langt du går, tidspunkter, mål osv.) bliver gemt **lokalt på din egen telefon**. Ingen andre end dig har adgang til det.
-- **Husk Backup:** Fordi dataene kun ligger på din enhed, er det **meget vigtigt**, at du løbende bruger appens indbyggede "Backup" funktion ("Eksportér Data" i indstillingerne). Hvis du mister din telefon eller sletter appen, er dine data væk, medmindre du har gemt en backup-fil!
-- **Fremtidig Medlemsstyring:** Det overvejes at tilføje en form for medlemsstyring i fremtiden. Eftersom dette vil kræve en online server (og derved gå imod appens nuværende kernefilosofi om 100% lokal dataopbevaring), er det endnu ikke endeligt besluttet. Hvis det en dag bliver udviklet, vil det højst sandsynligt blive introduceret som et aktivt og frivilligt tilvalg (opt-in), så man fortsat kan bruge appen 100% lokalt og privat, hvis man foretrækker det.
-## 🛠️ Teknologier
+WalkGoal is built with a 100% focus on your privacy:
+- **No Server:** The app sends **no** data, logs, or personal information to a cloud server.
+- **Your Data is Yours:** Everything you enter (how far you walk, times, goals, etc.) is saved **locally on your own phone**. No one else but you has access to it.
+- **Remember Backups:** Because the data is only on your device, it is **very important** that you regularly use the app's built-in "Backup" feature ("Export Data" in Settings). If you lose your phone or delete the app, your data is gone unless you have a backup file!
+- **Future Account Management:** We are considering adding some form of account management in the future. Because this would require an online server (and thus go against the app's current core philosophy of 100% local data storage), it hasn't been finally decided yet. If it is ever developed, it will most likely be introduced as an active, voluntary choice (opt-in), so you can continue to use the app 100% locally and privately if you prefer.
 
-Projektet er bygget med moderne webteknologier for at sikre den bedste ydeevne og oplevelse:
+## 🛠️ Technologies
+
+The project is built with modern web technologies to ensure the best performance and experience:
 
 - **Frontend Framework:** React 18
-- **Programmeringssprog:** TypeScript
-- **Styling:** Tailwind CSS (med skræddersyede farvetemaer)
-- **Byggeværktøj:** Vite
-- **Ikoner:** Lucide React
-- **Mobil/Native App:** Capacitor (Bygget til Android / APK)
+- **Programming Language:** TypeScript
+- **Styling:** Tailwind CSS (with custom color themes)
+- **Build Tool:** Vite
+- **Icons:** Lucide React
+- **Mobile/Native App:** Capacitor (Built for Android / APK)
 
-## 🚀 Kom I Gang (Lokal Kørsel)
+## 🚀 Getting Started (Run Locally)
 
-For at køre projektet lokalt på din egen maskine:
+To run the project locally on your own machine:
 
-1. **Klon projektet:**
+1. **Clone the project:**
    ```bash
    git clone https://github.com/KS71/WalkGoal.git
    ```
-2. **Gå ind i mappen:**
+2. **Enter the folder:**
    ```bash
    cd WalkGoal
    ```
-3. **Installer afhængigheder:**
+3. **Install dependencies:**
    ```bash
    npm install
    ```
-4. **Start appen:**
+4. **Start the app:**
    ```bash
    npm run dev
    ```
 
-## 👨‍💻 Udvikling & Historik
+## 👨‍💻 Development & History
 
-Appen opdateres løbende. Seneste store opdatering (v2.1.0) inkluderede blandt andet en mere læsevenlig historik-side og finpudsning af indstillingerne.
+The app is continuously updated. The latest major update (v2.1.0) included, among other things, a more readable history page and fine-tuning of the settings.
