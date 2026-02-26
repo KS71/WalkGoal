@@ -41,6 +41,7 @@ WalkGoal er bygget med 100% fokus på dit privatliv:
 - **Ingen Server:** Appen sender **ingen** data, logbøger eller personlige oplysninger til en server i skyen. 
 - **Dit Data Er Dit:** Alt hvad du indtaster (hvor langt du går, tidspunkter, mål osv.) bliver gemt **lokalt på din egen telefon**. Ingen andre end dig har adgang til det.
 - **Husk Backup:** Fordi dataene kun ligger på din enhed, er det **meget vigtigt**, at du løbende bruger appens indbyggede "Backup" funktion ("Eksportér Data" i indstillingerne). Hvis du mister din telefon eller sletter appen, er dine data væk, medmindre du har gemt en backup-fil!
+- **Fremtidig Medlemsstyring:** Det overvejes at tilføje en form for medlemsstyring i fremtiden. Eftersom dette vil kræve en online server (og derved gå imod appens nuværende kernefilosofi om 100% lokal dataopbevaring), er det endnu ikke endeligt besluttet. Hvis det en dag bliver udviklet, vil det højst sandsynligt blive introduceret som et aktivt og frivilligt tilvalg (opt-in), så man fortsat kan bruge appen 100% lokalt og privat, hvis man foretrækker det.
 ## 🛠️ Teknologier
 
 Projektet er bygget med moderne webteknologier for at sikre den bedste ydeevne og oplevelse:
