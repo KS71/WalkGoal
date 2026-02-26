@@ -1,0 +1,5 @@
+{
+  "name": "WalkGoal Tracker",
+  "description": "A comprehensive walking tracker that helps you set weekly, monthly, or yearly distance goals. It tracks your progress, calculates daily averages, and lets you know if you are ahead or behind schedule.",
+  "requestFramePermissions": []
+}

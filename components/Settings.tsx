@@ -1,0 +1,372 @@
+import React, { useRef, useState } from 'react';
+import { UserPreferences } from '../types';
+import { User, MapPin, Calendar, Bell, Moon, Sun, Download, Upload, HelpCircle, Smartphone, Shield, ChevronRight, Rocket, X, ArrowLeft } from 'lucide-react';
+
+interface SettingsProps {
+  preferences: UserPreferences;
+  onToggleTheme: () => void;
+  onUpdatePreferences: (updates: Partial<UserPreferences>) => void;
+  onExport: () => void;
+  onImport: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBack: () => void;
+}
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, icon, children }) => {
+  if (!isOpen) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="bg-background-light w-full max-w-sm border-[4px] border-black shadow-hard-lg animate-in zoom-in-95 duration-200 flex flex-col max-h-[85vh]">
+        <div className="flex items-center justify-between p-4 border-b-[3px] border-black bg-white">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-accent-pink border-[3px] border-black flex items-center justify-center shadow-hard-sm">
+              {icon}
+            </div>
+            <h2 className="text-xl font-black uppercase tracking-tight text-black">{title}</h2>
+          </div>
+          <button onClick={onClose} className="p-1 hover:bg-black hover:text-white transition-colors border-2 border-transparent hover:border-black">
+            <X size={24} className="text-black hover:text-white" strokeWidth={3} />
+          </button>
+        </div>
+        <div className="p-6 overflow-y-auto space-y-4 font-bold text-black text-sm">
+          {children}
+        </div>
+        <div className="p-4 border-t-[3px] border-black bg-white">
+          <button onClick={onClose} className="w-full bg-primary border-[3px] border-black shadow-hard-sm py-3 font-black uppercase text-black hover:translate-y-[-2px] hover:shadow-hard active:translate-y-[0px] active:shadow-hard-sm transition-all">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Settings: React.FC<SettingsProps> = ({
+  preferences,
+  onToggleTheme,
+  onUpdatePreferences,
+  onExport,
+  onImport,
+  onBack
+}) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [showHelp, setShowHelp] = useState(false);
+  const [showRoadmap, setShowRoadmap] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
+
+  // Safety check
+  if (!preferences) return null;
+
+  // Scroll to top on mount
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="flex flex-col h-full bg-background-light pb-24 animate-fade-in px-5 pt-8">
+      <div className="flex items-center justify-between border-b-[3px] border-black pb-2 mb-8">
+        <h1 className="text-4xl font-black uppercase tracking-tight text-black">Settings</h1>
+        <button
+          onClick={onBack}
+          className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-black bg-white shadow-hard-sm hover:translate-y-0.5 hover:shadow-none transition-all"
+        >
+          <ArrowLeft size={24} strokeWidth={2.5} />
+        </button>
+      </div>
+
+      <div className="flex-1 overflow-y-auto space-y-8 pb-8 scrollbar-hide">
+
+        {/* Profile Card */}
+        <div className="bg-primary border-[3px] border-black shadow-hard p-4 flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <div className="h-16 w-16 bg-white border-[3px] border-black flex items-center justify-center shadow-none">
+              <span className="text-2xl font-black text-black">JD</span>
+            </div>
+            <div>
+              <h2 className="text-xl font-black leading-none text-black">John Doe</h2>
+              <p className="text-sm font-bold opacity-80 mt-1 text-black">Basic Member</p>
+            </div>
+          </div>
+          <button className="h-10 w-10 bg-white border-[3px] border-black flex items-center justify-center hover:bg-gray-100 active:translate-x-[2px] active:translate-y-[2px] transition-all shadow-none">
+            <User size={20} className="text-black" strokeWidth={2.5} />
+          </button>
+        </div>
+
+        {/* Preferences */}
+        <div>
+          <h3 className="text-lg font-black uppercase mb-4 bg-black text-white inline-block px-3 py-1 shadow-none">Preferences</h3>
+          <div className="space-y-4">
+            {/* Distance Units */}
+            <div className="bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-blue-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none">
+                  <MapPin size={20} className="text-black" strokeWidth={2.5} />
+                </div>
+                <span className="font-bold text-black">Distance Units</span>
+              </div>
+              <div className="flex border-[3px] border-black shadow-none bg-white">
+                <button
+                  onClick={() => onUpdatePreferences({ units: 'km' })}
+                  className={`px-3 py-1 font-black border-r-[3px] border-black transition-colors ${preferences.units === 'km' ? 'bg-accent-pink text-black' : 'bg-white text-black hover:bg-gray-100'}`}
+                >
+                  KM
+                </button>
+                <button
+                  onClick={() => onUpdatePreferences({ units: 'mi' })}
+                  className={`px-3 py-1 font-black transition-colors ${preferences.units === 'mi' ? 'bg-accent-pink text-black' : 'bg-white text-black hover:bg-gray-100'}`}
+                >
+                  MI
+                </button>
+              </div>
+            </div>
+
+            {/* Week Start */}
+            <div className="bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-purple-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none">
+                  <Calendar size={20} className="text-black" strokeWidth={2.5} />
+                </div>
+                <span className="font-bold text-black">Week Starts On</span>
+              </div>
+              <div className="flex border-[3px] border-black shadow-none bg-white">
+                <button
+                  onClick={() => onUpdatePreferences({ weekStart: 'monday' })}
+                  className={`px-3 py-1 font-black border-r-[3px] border-black transition-colors ${preferences.weekStart === 'monday' ? 'bg-accent-pink text-black' : 'bg-white text-black hover:bg-gray-100'}`}
+                >
+                  MON
+                </button>
+                <button
+                  onClick={() => onUpdatePreferences({ weekStart: 'sunday' })}
+                  className={`px-3 py-1 font-black transition-colors ${preferences.weekStart === 'sunday' ? 'bg-accent-pink text-black' : 'bg-white text-black hover:bg-gray-100'}`}
+                >
+                  SUN
+                </button>
+              </div>
+            </div>
+
+            {/* Notifications */}
+            <div className="bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-orange-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none">
+                  <Bell size={20} className="text-black" strokeWidth={2.5} />
+                </div>
+                <span className="font-bold text-black">Daily Reminders</span>
+              </div>
+              <button
+                onClick={() => onUpdatePreferences({ notifications: !preferences.notifications })}
+                className={`w-14 h-8 border-[3px] border-black p-0.5 transition-colors relative ${preferences.notifications ? 'bg-black' : 'bg-white'}`}
+              >
+                <div className={`w-6 h-6 border-[3px] border-black transition-transform ${preferences.notifications ? 'translate-x-6 bg-accent-pink' : 'translate-x-0 bg-gray-300'}`} />
+              </button>
+            </div>
+
+            {/* Time Format */}
+            <div className="bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-teal-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none">
+                  <Calendar size={20} className="text-black" strokeWidth={2.5} />
+                </div>
+                <span className="font-bold text-black">Time Format</span>
+              </div>
+              <div className="flex border-[3px] border-black shadow-none bg-white">
+                <button
+                  onClick={() => onUpdatePreferences({ timeFormat: '24h' })}
+                  className={`px-3 py-1 font-black border-r-[3px] border-black transition-colors ${preferences.timeFormat === '24h' ? 'bg-accent-pink text-black' : 'bg-white text-black hover:bg-gray-100'}`}
+                >
+                  24H
+                </button>
+                <button
+                  onClick={() => onUpdatePreferences({ timeFormat: '12h' })}
+                  className={`px-3 py-1 font-black transition-colors ${preferences.timeFormat === '12h' ? 'bg-accent-pink text-black' : 'bg-white text-black hover:bg-gray-100'}`}
+                >
+                  12H
+                </button>
+              </div>
+            </div>
+
+            {/* Theme Toggle */}
+            {/* 
+                <div className="bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between cursor-pointer active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+                     onClick={onToggleTheme}
+                >
+                    <div className="flex items-center space-x-3">
+                        <div className="bg-indigo-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none">
+                            {preferences.theme === 'dark' ? <Moon size={20} className="text-black" strokeWidth={2.5} /> : <Sun size={20} className="text-black" strokeWidth={2.5} />}
+                        </div>
+                        <span className="font-bold text-black">App Theme</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                         <span className="font-black text-sm text-black uppercase">{preferences.theme}</span>
+                         <ChevronRight size={20} className="text-black" strokeWidth={2.5} />
+                    </div>
+                </div>
+                */}
+          </div>
+        </div>
+
+        {/* Data Management */}
+        <div>
+          <h3 className="text-lg font-black uppercase mb-4 bg-black text-white inline-block px-3 py-1 shadow-none">Data</h3>
+          <div className="space-y-4">
+            {/* Backup */}
+            <button
+              onClick={onExport}
+              className="w-full bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="bg-blue-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none flex-shrink-0">
+                  <Download size={20} className="text-black" strokeWidth={2.5} />
+                </div>
+                <div className="flex flex-col items-start">
+                  <span className="font-bold text-black">Backup Data</span>
+                  <span className="text-xs font-bold opacity-60 text-black text-left">Export logs to JSON</span>
+                </div>
+              </div>
+              <ChevronRight size={20} className="text-black" strokeWidth={2.5} />
+            </button>
+
+            {/* Restore */}
+            <label className="w-full bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all relative">
+              <div className="flex items-center space-x-3">
+                <div className="bg-green-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none flex-shrink-0">
+                  <Upload size={20} className="text-black" strokeWidth={2.5} />
+                </div>
+                <div className="flex flex-col items-start">
+                  <span className="font-bold text-black">Restore Data</span>
+                  <span className="text-xs font-bold opacity-60 text-black text-left">Import from backup</span>
+                </div>
+              </div>
+              <ChevronRight size={20} className="text-black" strokeWidth={2.5} />
+              <input
+                type="file"
+                accept=".json"
+                onChange={onImport}
+                className="absolute inset-0 opacity-0 cursor-pointer"
+              />
+            </label>
+          </div>
+        </div>
+
+        {/* Support */}
+        <div>
+          <h3 className="text-lg font-black uppercase mb-4 bg-black text-white inline-block px-3 py-1 shadow-none">Support</h3>
+          <div className="space-y-4">
+            <button
+              onClick={() => setShowRoadmap(true)}
+              className="w-full bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="bg-pink-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none flex-shrink-0">
+                  <Rocket size={20} className="text-black" strokeWidth={2.5} />
+                </div>
+                <div className="flex flex-col items-start">
+                  <span className="font-bold text-black">Coming Soon</span>
+                  <span className="text-xs font-bold opacity-60 text-black text-left">Roadmap & Future</span>
+                </div>
+              </div>
+              <ChevronRight size={20} className="text-black" strokeWidth={2.5} />
+            </button>
+
+            <button
+              onClick={() => setShowHelp(true)}
+              className="w-full bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="bg-teal-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none flex-shrink-0">
+                  <HelpCircle size={20} className="text-black" strokeWidth={2.5} />
+                </div>
+                <span className="font-bold text-black">Help Center</span>
+              </div>
+              <ChevronRight size={20} className="text-black" strokeWidth={2.5} />
+            </button>
+
+            <button
+              onClick={() => setShowPrivacy(true)}
+              className="w-full bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all"
+            >
+              <div className="flex items-center space-x-3">
+                <div className="bg-red-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none flex-shrink-0">
+                  <Shield size={20} className="text-black" strokeWidth={2.5} />
+                </div>
+                <span className="font-bold text-black">Privacy Policy</span>
+              </div>
+              <ChevronRight size={20} className="text-black" strokeWidth={2.5} />
+            </button>
+
+            <div className="bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-gray-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none flex-shrink-0">
+                  <Smartphone size={20} className="text-black" strokeWidth={2.5} />
+                </div>
+                <span className="font-bold text-black">Version</span>
+              </div>
+              <span className="text-xs font-black bg-black text-white px-2 py-1">v2.1.0</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Modals */}
+      <Modal
+        isOpen={showPrivacy}
+        onClose={() => setShowPrivacy(false)}
+        title="Privacy"
+        icon={<Shield size={24} className="text-black" strokeWidth={2.5} />}
+      >
+        <p>We respect your privacy. All data is stored LOCALLY on your device.</p>
+        <p>We do not collect, store, or share your personal walking data.</p>
+        <p className="bg-yellow-100 border-[3px] border-black p-3">
+          WARNING: If you delete this app without backing up, your data will be lost forever.
+        </p>
+      </Modal>
+
+      <Modal
+        isOpen={showHelp}
+        onClose={() => setShowHelp(false)}
+        title="Help"
+        icon={<HelpCircle size={24} className="text-black" strokeWidth={2.5} />}
+      >
+        <div className="space-y-4">
+          <div>
+            <h3 className="font-black uppercase mb-1">Goals</h3>
+            <p>You can set goals for Week, Month, and Year periods.</p>
+          </div>
+          <div>
+            <h3 className="font-black uppercase mb-1">Consistency</h3>
+            <p>The heatmap shows your streak. Darker colors mean more activity.</p>
+          </div>
+          <div>
+            <h3 className="font-black uppercase mb-1">Backup</h3>
+            <p>Use the Export button to save a JSON file of your logs. You can import it later to restore your data.</p>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={showRoadmap}
+        onClose={() => setShowRoadmap(false)}
+        title="Roadmap"
+        icon={<Rocket size={24} className="text-black" strokeWidth={2.5} />}
+      >
+        <ul className="list-disc pl-5 space-y-2">
+          <li>Cloud Sync (Cross-device support)</li>
+          <li>GPS Tracking (Auto-log walks)</li>
+          <li>Social Features (Compete with friends)</li>
+          <li>Achievements & Badges</li>
+          <li>Dark Mode (The Real One)</li>
+        </ul>
+      </Modal>
+
+    </div>
+  );
+};
+
+export default Settings;
