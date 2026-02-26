@@ -1,6 +1,6 @@
 # 🚶‍♂️ WalkGoal
 
-En moderne, lynhurtig og brugervenlig Android-app (.apk) designet til at hjælpe dig med at tracke dine gåture, sætte personlige mål og holde styr på din aktivitetshistorik. Appen er bygget med fokus på et flot, responsivt design og en gnidningsfri brugeroplevelse på mobil.
+En moderne, lynhurtig og brugervenlig Android-app (.apk) designet til at hjælpe dig med at tracke dine gåture, sætte personlige mål og holde styr på dem. Appen er bygget med fokus på et flot, responsivt design og en gnidningsfri brugeroplevelse på mobil.
 
 ---
 
@@ -29,10 +29,10 @@ En moderne, lynhurtig og brugervenlig Android-app (.apk) designet til at hjælpe
 ## ✨ Funktioner
 
 - **📊 Dashboard:** Få det fulde overblik over dagens, ugens og månedens fremskridt direkte på forsiden.
-- **🎯 Målsætning:** Sæt personlige mål for, hvor meget du vil gå, og følg med i, hvor tæt du er på at nå dem.
-- **📝 Log Gåtur:** Nem og hurtig registrering af afstand og tid for dine seneste gåture.
-- **📅 Historik:** Dyk ned i dine data og se præcis, hvor meget du har gået de tidligere uger og måneder (nu med ugedage-visning for bedre overblik).
-- **⚙️ Indstillinger:** Tilpas appen til dine behov (inkluderer versionsstyring og nem sletning af data).
+- **🎯 Målsætning:** Sæt personlige mål for, hvor meget du vil gå pr uge, måned og år, og følg med i, hvor tæt du er på at nå dem.
+- **📝 Log Gåtur:** Nem og hurtig registrering af distance du har gået for dine seneste gåture.
+- **📅 Historik:** Kommer i næste version.
+- **⚙️ Indstillinger:** Tilpas appen til dine behov og nem sletning af data.
 - **📱 Android App (.apk):** Bygget som en native app via Capacitor, lige til at installere på din Android-telefon.
 
 ## 🔒 Data & Privatliv
