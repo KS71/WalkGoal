@@ -28,6 +28,7 @@ export interface UserPreferences {
   units: 'km' | 'mi';
   weekStart: 'monday' | 'sunday';
   timeFormat: '12h' | '24h';
+  lastBackupDate?: string;
 }
 
 export interface AppState {

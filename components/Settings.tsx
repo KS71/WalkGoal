@@ -224,12 +224,19 @@ const Settings: React.FC<SettingsProps> = ({
                 <div className="bg-blue-200 border-[3px] border-black w-10 h-10 flex items-center justify-center shadow-none flex-shrink-0">
                   <Download size={20} className="text-black" strokeWidth={2.5} />
                 </div>
-                <div className="flex flex-col items-start">
+                <div className="flex flex-col items-start min-w-0">
                   <span className="font-bold text-black">Backup Data</span>
-                  <span className="text-xs font-bold opacity-60 text-black text-left">Export logs to JSON</span>
+                  <div className="flex flex-col items-start gap-0.5 mt-0.5">
+                    <span className="text-[10px] font-bold opacity-60 text-black text-left leading-tight uppercase tracking-wider">Export logs to JSON</span>
+                    {preferences.lastBackupDate && (
+                      <span className="text-[10px] font-black text-green-700 bg-green-100 border border-green-700 px-1 py-0.5 rounded-sm line-clamp-1 leading-tight">
+                        Last: {new Date(preferences.lastBackupDate).toLocaleDateString('en-GB')} {new Date(preferences.lastBackupDate).toLocaleTimeString(preferences.timeFormat === '24h' ? 'en-GB' : 'en-US', { hour: '2-digit', minute: '2-digit', hour12: preferences.timeFormat === '12h' })}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-              <ChevronRight size={20} className="text-black" strokeWidth={2.5} />
+              <ChevronRight size={20} className="text-black flex-shrink-0" strokeWidth={2.5} />
             </button>
 
             {/* Restore */}
@@ -307,7 +314,7 @@ const Settings: React.FC<SettingsProps> = ({
                 </div>
                 <span className="font-bold text-black">Version</span>
               </div>
-              <span className="text-xs font-black bg-black text-white px-2 py-1">v2.1.0</span>
+              <span className="text-xs font-black bg-black text-white px-2 py-1">v2.1.1</span>
             </div>
           </div>
         </div>

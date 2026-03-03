@@ -173,17 +173,33 @@ const App: React.FC = () => {
           url: result.uri,
           dialogTitle: 'Save Backup'
         });
+
+        // Set last backup date on success
+        setState(prev => ({
+          ...prev,
+          preferences: { ...prev.preferences, lastBackupDate: new Date().toISOString() }
+        }));
       } catch (e) {
         console.error('Export failed', e);
         alert('Export failed: ' + (e as any).message);
       }
     } else {
       // Web fallback
-      const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', fileName);
-      linkElement.click();
+      try {
+        const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', fileName);
+        linkElement.click();
+
+        // Set last backup date on success
+        setState(prev => ({
+          ...prev,
+          preferences: { ...prev.preferences, lastBackupDate: new Date().toISOString() }
+        }));
+      } catch (e) {
+        console.error('Web Export failed', e);
+      }
     }
   };
 
