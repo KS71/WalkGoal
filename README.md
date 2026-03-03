@@ -2,6 +2,8 @@
 
 A modern, lightning-fast, and user-friendly Android app (.apk) designed to help you track your walks, set personal goals, and keep track of them. The app is built with a focus on a beautiful, responsive design and a seamless mobile user experience.
 
+> **Note:** WalkGoal does *not* use your phone's GPS to automatically track your walks. You must use another device (like a smartwatch or another tracking app) to record your distance and then manually log it in WalkGoal.
+
 ---
 
 ## 📸 Screenshots
@@ -77,4 +79,10 @@ To run the project locally on your own machine:
 
 ## 👨‍💻 Development & History
 
-The app is continuously updated. The latest major update (v2.1.0) included, among other things, a more readable history page and fine-tuning of the settings.
+The app is continuously updated.
+
+**v2.1.1:**
+- Added Settings navigation to sub-headers (Log Walk, Goal Setup, History).
+- Added Last Backup date display with 12h/24h format support in Settings.
+- Added a brand new Yearly Overview Statistics screen.
+- Improved header styling across all pages to prevent overlap with the Android status bar.
