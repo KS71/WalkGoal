@@ -40,6 +40,7 @@ A modern, lightning-fast, and user-friendly Android app (.apk) designed to help 
 ## 🔒 Data & Privacy
 
 WalkGoal is built with a 100% focus on your privacy:
+- **Project Status:** Please note that there are still features that have not yet been installed, but the app works perfectly fine.
 - **No Server:** The app sends **no** data, logs, or personal information to a cloud server.
 - **Your Data is Yours:** Everything you enter (how far you walk, times, goals, etc.) is saved **locally on your own phone**. No one else but you has access to it.
 - **Remember Backups:** Because the data is only on your device, it is **very important** that you regularly use the app's built-in "Backup" feature ("Export Data" in Settings). If you lose your phone or delete the app, your data is gone unless you have a backup file!
