@@ -14,8 +14,6 @@ A user-friendly Android app (.apk) designed to help you track your walks, set pe
 
 <div align="center">
   <img src="001.jpg" width="300" alt="Dashboard" />
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="002.jpg" width="300" alt="Log Walk" />
 </div>
 <br />
 <div align="center">
@@ -25,8 +23,6 @@ A user-friendly Android app (.apk) designed to help you track your walks, set pe
 </div>
 <br />
 <div align="center">
-  <img src="005.jpg" width="300" alt="Goal Setup 1" />
-  &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="006.jpg" width="300" alt="Goal Setup 2" />
 </div>
 <br />
