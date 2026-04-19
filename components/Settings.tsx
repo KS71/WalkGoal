@@ -314,7 +314,7 @@ const Settings: React.FC<SettingsProps> = ({
                 </div>
                 <span className="font-bold text-black">Version</span>
               </div>
-              <span className="text-xs font-black bg-black text-white px-2 py-1">v2.1.3</span>
+              <span className="text-xs font-black bg-black text-white px-2 py-1">v2.1.4</span>
             </div>
           </div>
         </div>

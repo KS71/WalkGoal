@@ -85,6 +85,11 @@ To run the project locally on your own machine:
 
 The app is continuously updated.
 
+**v2.1.4:**
+- **Monthly History Grouping:** Walks in the History tab are now automatically grouped by month with collapsible sections.
+- **Monthly Totals:** Each month now displays the total distance walked directly in the header.
+- **Auto-Expand:** The most recent month is automatically expanded for quick access.
+
 **v2.1.3:**
 - Added the ability to manually select the time of the walk instead of defaulting to 'Now'.
 - Implemented a festive "Goal Reached" graphic when progress reaches 100% or more.

@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { AppState, WalkLog } from '../types';
 import { toDisplayDistance, getUnitLabel } from '../utils';
-import { Clock, Trash2, Footprints, Settings, MapPin } from 'lucide-react';
+import { Clock, Trash2, Footprints, Settings, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface HistoryProps {
   state: AppState;
@@ -123,7 +123,45 @@ const SwipeableHistoryItem: React.FC<{ log: WalkLog; onDelete: (id: string) => v
 
 const History: React.FC<HistoryProps> = ({ state, onDeleteLog, setView, units, timeFormat }) => {
   // Sort logs by date descending (Newest first)
-  const sortedLogs = [...state.logs].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  const sortedLogs = useMemo(() => {
+    return [...state.logs].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }, [state.logs]);
+
+  // Group logs by Month (e.g. "April 2026")
+  const groupedLogs = useMemo(() => {
+    const groups: Record<string, WalkLog[]> = {};
+    sortedLogs.forEach(log => {
+      const d = new Date(log.date);
+      // Create a sortable key like "2026-04"
+      const sortKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+      if (!groups[sortKey]) {
+        groups[sortKey] = [];
+      }
+      groups[sortKey].push(log);
+    });
+    return groups;
+  }, [sortedLogs]);
+
+  // Sort the keys descending so newest month is first
+  const sortedMonthKeys = useMemo(() => {
+    return Object.keys(groupedLogs).sort((a, b) => b.localeCompare(a));
+  }, [groupedLogs]);
+
+  // Track expanded state
+  const [expandedMonths, setExpandedMonths] = useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    if (sortedMonthKeys.length > 0) {
+      initial[sortedMonthKeys[0]] = true; // Auto-expand the newest month
+    }
+    return initial;
+  });
+
+  const toggleMonth = (key: string) => {
+    setExpandedMonths(prev => ({
+      ...prev,
+      [key]: !prev[key]
+    }));
+  };
 
   // Scroll to top on mount
   React.useEffect(() => {
@@ -178,25 +216,58 @@ const History: React.FC<HistoryProps> = ({ state, onDeleteLog, setView, units, t
       </div>
 
       {/* Logs List */}
-      <section className="px-6 flex flex-col pt-2 pb-4">
-        {sortedLogs.map((log, index) => (
-          <SwipeableHistoryItem
-            key={log.id}
-            log={log}
-            index={index}
-            onDelete={onDeleteLog || (() => { })}
-            isLast={index === sortedLogs.length - 1}
-            units={units}
-            timeFormat={timeFormat}
-          />
-        ))}
+      <section className="px-6 flex flex-col pt-2 pb-4 delay-100">
+        {sortedMonthKeys.length > 0 ? (
+          sortedMonthKeys.map((monthKey) => {
+            const logsInMonth = groupedLogs[monthKey];
+            const isExpanded = expandedMonths[monthKey];
+            
+            // Format nice label like "April 2026"
+            const [year, monthNum] = monthKey.split('-');
+            const dateObj = new Date(parseInt(year), parseInt(monthNum) - 1, 1);
+            const displayLabel = dateObj.toLocaleString('en-US', { month: 'long', year: 'numeric' });
 
-        {state.logs.length === 0 && (
+            // Calculate total distance for this month
+            const monthTotal = logsInMonth.reduce((acc, log) => acc + log.distance, 0);
+            const displayMonthTotal = toDisplayDistance(monthTotal, units);
+            const unitLabel = getUnitLabel(units);
+
+            return (
+              <div key={monthKey} className="mb-6">
+                <button 
+                  onClick={() => toggleMonth(monthKey)}
+                  className={`w-full flex items-center justify-between border-[3px] border-black py-2.5 px-3 shadow-hard active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all ${isExpanded ? 'bg-primary' : 'bg-white'}`}
+                >
+                  <span className="font-black text-sm tracking-wider text-black uppercase flex items-baseline gap-1 whitespace-nowrap overflow-hidden">
+                    {displayLabel} - {displayMonthTotal} <span className="text-[10px]">{unitLabel.toLowerCase()}</span>
+                  </span>
+                  {isExpanded ? <ChevronUp size={22} className="text-black shrink-0 ml-2" strokeWidth={3} /> : <ChevronDown size={22} className="text-black shrink-0 ml-2" strokeWidth={3} />}
+                </button>
+                
+                {isExpanded && (
+                  <div className="flex flex-col pt-6 transition-all duration-300 animate-fade-in">
+                    {logsInMonth.map((log, index) => (
+                      <SwipeableHistoryItem
+                        key={log.id}
+                        log={log}
+                        index={index}
+                        onDelete={onDeleteLog || (() => { })}
+                        isLast={index === logsInMonth.length - 1}
+                        units={units}
+                        timeFormat={timeFormat}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })
+        ) : (
           <div className="flex flex-col items-center justify-center py-20 opacity-50 border-[3px] border-dashed border-black m-4 p-8">
             <div className="h-16 w-16 rounded-full bg-slate-200 border-2 border-black flex items-center justify-center mb-4">
               <Footprints size={24} className="text-black" />
             </div>
-            <p className="text-black font-bold uppercase tracking-wider">No walks logged yet.</p>
+            <p className="text-black font-bold uppercase tracking-wider text-center">No walks logged yet.</p>
           </div>
         )}
       </section>
