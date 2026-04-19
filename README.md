@@ -14,6 +14,8 @@ A user-friendly Android app (.apk) designed to help you track your walks, set pe
 
 <div align="center">
   <img src="001.jpg" width="300" alt="Dashboard" />
+    &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="004.jpg" width="300" alt="Settings" />
 </div>
 <br />
 <div align="center">
