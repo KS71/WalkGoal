@@ -2,6 +2,8 @@
 
 100% vibe code
 
+**Note:** Please note that there are still features that have not yet been installed, but the app works perfectly fine.
+
 A user-friendly Android app (.apk) designed to help you track your walks, set personal goals, and keep track of them. The app is built with a focus on a beautiful, responsive design and a seamless mobile user experience.
 
 > **Note:** WalkGoal does *not* use your phone's GPS to automatically track your walks. You must use another device (like a smartwatch or another tracking app) to record your distance and then manually log it in WalkGoal.
@@ -42,7 +44,6 @@ A user-friendly Android app (.apk) designed to help you track your walks, set pe
 ## 🔒 Data & Privacy
 
 WalkGoal is built with a 100% focus on your privacy:
-- **Project Status:** Please note that there are still features that have not yet been installed, but the app works perfectly fine.
 - **No Server:** The app sends **no** data, logs, or personal information to a cloud server.
 - **Your Data is Yours:** Everything you enter (how far you walk, times, goals, etc.) is saved **locally on your own phone**. No one else but you has access to it.
 - **Remember Backups:** Because the data is only on your device, it is **very important** that you regularly use the app's built-in "Backup" feature ("Export Data" in Settings). If you lose your phone or delete the app, your data is gone unless you have a backup file!
