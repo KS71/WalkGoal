@@ -1,6 +1,8 @@
 # 🚶‍♂️ WalkGoal
 
-A modern, lightning-fast, and user-friendly Android app (.apk) designed to help you track your walks, set personal goals, and keep track of them. The app is built with a focus on a beautiful, responsive design and a seamless mobile user experience.
+100% vibe code
+
+A user-friendly Android app (.apk) designed to help you track your walks, set personal goals, and keep track of them. The app is built with a focus on a beautiful, responsive design and a seamless mobile user experience.
 
 > **Note:** WalkGoal does *not* use your phone's GPS to automatically track your walks. You must use another device (like a smartwatch or another tracking app) to record your distance and then manually log it in WalkGoal.
 
