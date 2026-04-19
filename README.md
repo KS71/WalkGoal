@@ -31,8 +31,6 @@ A user-friendly Android app (.apk) designed to help you track your walks, set pe
 </div>
 <br />
 <div align="center">
-  <img src="005a.jpg" width="300" alt="New Screenshot 3" />
-  &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="006.jpg" width="300" alt="Goal Setup 2" />
 </div>
 
