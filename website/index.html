@@ -81,6 +81,7 @@
         <a href="#features">Features</a>
         <a href="#data">Your Data</a>
         <a href="#screenshots">Screenshots</a>
+        <a href="#faq">FAQ</a>
         <a href="#download">Download</a>
       </div>
       <a href="#download" class="btn btn-primary btn-sm nav-cta">Get the App</a>
@@ -144,6 +145,21 @@
         <span>Track your walks &nbsp;✦&nbsp; Set weekly goals &nbsp;✦&nbsp; Beat yesterday &nbsp;✦&nbsp; Consistency heatmap &nbsp;✦&nbsp; Cloud backup &nbsp;✦&nbsp; Health Connect sync &nbsp;✦&nbsp; 100% your data &nbsp;✦&nbsp;</span>
         <span aria-hidden="true">Track your walks &nbsp;✦&nbsp; Set weekly goals &nbsp;✦&nbsp; Beat yesterday &nbsp;✦&nbsp; Consistency heatmap &nbsp;✦&nbsp; Cloud backup &nbsp;✦&nbsp; Health Connect sync &nbsp;✦&nbsp; 100% your data &nbsp;✦&nbsp;</span>
       </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT / INTRO ========== -->
+  <section id="about">
+    <div class="container">
+      <p class="about-intro">
+        StrideTrack is a free <strong>walking tracker app for Android</strong> built for people who want a
+        no-nonsense way to track daily steps, log distance walked, and hit their walking goals. Set a
+        <strong>weekly, monthly, or yearly walking goal</strong>, log every walk in seconds, and watch your
+        progress add up on a live dashboard. StrideTrack works fully <strong>offline</strong>, syncs
+        automatically with <strong>Garmin, Samsung Galaxy Watch, and Fitbit</strong> via Google Health
+        Connect, and keeps your walking history safe with optional encrypted cloud backup — all with no ads
+        and no subscription.
+      </p>
     </div>
   </section>
 
@@ -367,6 +383,89 @@
     </div>
   </section>
 
+  <!-- ========== FAQ ========== -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-header center">
+        <div class="section-label">QUESTIONS</div>
+        <h2>Frequently asked<br />questions.</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>Is StrideTrack really free to use?</h3>
+          <p>Yes. StrideTrack is completely free on both GitHub and Google Play, with no ads and no subscription. Every feature — goal tracking, history, heatmap, and Health Connect sync — is included at no cost.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Does the walking tracker app work offline?</h3>
+          <p>Yes. StrideTrack is offline-first by default. Every walk you log is saved directly on your phone, and the app works fully without an internet connection. Cloud backup is optional.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can StrideTrack sync steps from my smartwatch?</h3>
+          <p>Yes. StrideTrack integrates with Google Health Connect to automatically pull walking and hiking sessions from Garmin, Samsung Galaxy Watch, and Fitbit devices, without any manual typing.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Is my walking data private and secure?</h3>
+          <p>Yes. By default your data never leaves your phone. If you opt in to cloud sync, your data is protected by PostgreSQL Row-Level Security via Supabase, and it is never sold or shared with third parties.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What platforms is StrideTrack available on?</h3>
+          <p>StrideTrack is available for Android, downloadable from the Google Play Store or as a free APK from GitHub Releases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is StrideTrack really free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. StrideTrack is completely free on both GitHub and Google Play, with no ads and no subscription. Every feature — goal tracking, history, heatmap, and Health Connect sync — is included at no cost."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the walking tracker app work offline?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. StrideTrack is offline-first by default. Every walk you log is saved directly on your phone, and the app works fully without an internet connection. Cloud backup is optional."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can StrideTrack sync steps from my smartwatch?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. StrideTrack integrates with Google Health Connect to automatically pull walking and hiking sessions from Garmin, Samsung Galaxy Watch, and Fitbit devices, without any manual typing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my walking data private and secure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. By default your data never leaves your phone. If you opt in to cloud sync, your data is protected by PostgreSQL Row-Level Security via Supabase, and it is never sold or shared with third parties."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What platforms is StrideTrack available on?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "StrideTrack is available for Android, downloadable from the Google Play Store or as a free APK from GitHub Releases."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- ========== DOWNLOAD ========== -->
   <section id="download">
     <div class="container download-inner">
@@ -447,6 +546,7 @@
           <a href="#health-connect">Health Connect</a>
           <a href="#data">Data & Privacy</a>
           <a href="#screenshots">Screenshots</a>
+          <a href="#faq">FAQ</a>
           <a href="#download">Download</a>
         </div>
         <div class="footer-col">
