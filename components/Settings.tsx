@@ -4,6 +4,7 @@ import { User, MapPin, Calendar, Bell, Moon, Sun, Download, Upload, HelpCircle, 
 import { supabase } from '../supabaseClient';
 import { Capacitor } from '@capacitor/core';
 import { requestHealthConnectPermissions, diagnoseHealthConnect, generateHealthConnectId, HealthConnectDiagnostics } from '../utils/healthConnect';
+import { isTrackingExcluded, setTrackingExcluded } from '../utils/usageTracking';
 import { Health } from '@capgo/capacitor-health';
 
 interface SettingsProps {
@@ -31,8 +32,8 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, icon, children }) => {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-background-light w-full max-w-sm border-[4px] border-black shadow-hard-lg animate-in zoom-in-95 duration-200 flex flex-col max-h-[85vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="bg-background-light w-full max-w-sm border-[4px] border-black shadow-hard-lg animate-in zoom-in-95 duration-200 flex flex-col max-h-[80vh]">
         <div className="flex items-center justify-between p-4 border-b-[3px] border-black bg-white">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-accent-pink border-[3px] border-black flex items-center justify-center shadow-hard-sm">
@@ -75,6 +76,8 @@ const Settings: React.FC<SettingsProps> = ({
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showHealthHelp, setShowHealthHelp] = useState(false);
+  const [showTrackingHelp, setShowTrackingHelp] = useState(false);
+  const [excludeFromTracking, setExcludeFromTracking] = useState(isTrackingExcluded());
 
   // Health Connect diagnostics
   const [showDiagnostics, setShowDiagnostics] = useState(false);
@@ -598,6 +601,38 @@ const Settings: React.FC<SettingsProps> = ({
           </div>
         </div>
 
+        {/* Developer / Usage Tracking */}
+        <div>
+          <h3 className="text-lg font-black uppercase mb-4 bg-black text-white inline-block px-3 py-1 shadow-none">Developer</h3>
+          <div className="bg-white border-[3px] border-black shadow-hard p-4 flex items-center justify-between">
+            <div className="flex flex-col pr-3">
+              <div className="flex items-center gap-1.5">
+                <span className="font-bold text-black text-sm">Exclude This Device From Stats</span>
+                <button
+                  onClick={() => setShowTrackingHelp(true)}
+                  className="w-4 h-4 rounded-full border-2 border-black flex items-center justify-center flex-shrink-0 hover:bg-black hover:text-white transition-colors"
+                  aria-label="What does this mean?"
+                >
+                  <span className="text-[9px] font-black leading-none">?</span>
+                </button>
+              </div>
+              <span className="text-[10px] text-black/60 font-bold uppercase tracking-wider leading-tight mt-0.5">
+                Stops anonymous app-open/walk-logged pings from this device only
+              </span>
+            </div>
+            <button
+              onClick={() => {
+                const next = !excludeFromTracking;
+                setExcludeFromTracking(next);
+                setTrackingExcluded(next);
+              }}
+              className={`border-[3px] border-black px-4 py-1.5 font-black text-xs uppercase shadow-hard-sm hover:translate-y-[-1px] hover:shadow-hard active:translate-y-0 transition-all text-black flex-shrink-0 ${excludeFromTracking ? 'bg-accent-pink' : 'bg-white'}`}
+            >
+              {excludeFromTracking ? 'Excluded' : 'Exclude'}
+            </button>
+          </div>
+        </div>
+
         {/* Danger Zone */}
         <div>
           <h3 className="text-lg font-black uppercase mb-4 bg-red-600 text-white inline-block px-3 py-1 shadow-none">Danger Zone</h3>
@@ -689,7 +724,7 @@ const Settings: React.FC<SettingsProps> = ({
                 </div>
                 <span className="font-bold text-black">Version</span>
               </div>
-              <span className="text-xs font-black bg-black text-white px-2 py-1">v2.3.6</span>
+              <span className="text-xs font-black bg-black text-white px-2 py-1">v2.3.8</span>
             </div>
           </div>
         </div>
@@ -706,6 +741,7 @@ const Settings: React.FC<SettingsProps> = ({
         <p>We respect your privacy. By default, all walking data, goals, and settings are stored <strong>locally</strong> on your device.</p>
         <p>If you choose to register and use <strong>Cloud Sync</strong>, your data will be securely synchronized to your personal database (Supabase) in the cloud solely as a backup. Your credentials and walks are fully private and protected.</p>
         <p>We do not collect, monetize, or share your personal walking data.</p>
+        <p>StrideTrack sends a small, fully anonymous signal when the app is opened or a walk is logged, so we can see whether the app is actually being used. No personal data is included — you can disable this anytime under Developer → Exclude This Device From Stats.</p>
         <p className="bg-yellow-100 border-[3px] border-black p-3">
           WARNING: If you delete this app without backing up (either by exporting a local JSON file or signing in to Cloud Sync), your data will be lost forever.
         </p>
@@ -800,6 +836,40 @@ const Settings: React.FC<SettingsProps> = ({
               <li>Toggle individual permissions ON/OFF or turn off all sync completely.</li>
             </ul>
           </div>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={showTrackingHelp}
+        onClose={() => setShowTrackingHelp(false)}
+        title="Usage Stats"
+        icon={<Shield size={24} className="text-black" strokeWidth={2.5} />}
+      >
+        <div className="space-y-4 text-black">
+          <p className="font-bold text-xs leading-normal">
+            StrideTrack sends a tiny, fully anonymous signal each time the app is opened or a walk is logged. This simply helps the developer see whether the app is actually being used.
+          </p>
+
+          <div className="bg-green-50 border-[3px] border-black p-3 shadow-none space-y-1">
+            <h4 className="font-black uppercase tracking-tight text-xs">What is sent</h4>
+            <p className="font-bold text-xs leading-normal">
+              Only an event type ("app opened" or "walk logged") and a timestamp. Nothing else.
+            </p>
+          </div>
+
+          <div className="bg-red-50 border-[3px] border-black p-3 shadow-none space-y-1">
+            <h4 className="font-black uppercase tracking-tight text-xs">What is NOT sent</h4>
+            <ul className="list-disc pl-4 space-y-1 font-bold text-xs leading-normal">
+              <li>No name, email or account info</li>
+              <li>No device ID or advertising ID</li>
+              <li>No IP address, GPS location or walk data</li>
+              <li>Nothing that can identify you personally</li>
+            </ul>
+          </div>
+
+          <p className="font-bold text-xs leading-normal">
+            Turning on <strong>Exclude</strong> stops these pings from this device only. It's local to your phone and doesn't affect your walks, goals or any other data.
+          </p>
         </div>
       </Modal>
 

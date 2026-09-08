@@ -13,6 +13,7 @@ import Settings from './components/Settings';
 import Navigation from './components/Navigation';
 import YearlyOverview from './components/YearlyOverview';
 import { fetchRecentWalksAndHikes, isHealthConnectAvailable } from './utils/healthConnect';
+import { trackEvent } from './utils/usageTracking';
 import { supabase } from './supabaseClient';
 import { X, Lock, RefreshCw } from 'lucide-react';
 
@@ -149,6 +150,11 @@ const App: React.FC = () => {
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [state]);
+
+  // Anonymous usage ping - no personal data, just counts app opens
+  useEffect(() => {
+    trackEvent('app_open');
+  }, []);
 
   // Track active Supabase session & handle Deep Linking + Password Recovery
   useEffect(() => {
@@ -570,6 +576,7 @@ const App: React.FC = () => {
       logs: [newLog, ...prev.logs]
     }));
     changeView('dashboard');
+    trackEvent('walk_logged');
 
     if (user) {
       try {
