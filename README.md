@@ -93,6 +93,10 @@ To run the project locally on your own machine:
 
 ## 👨‍💻 Development & History
 
+**v2.3.8:**
+- **Anonymous Usage Tracking:** StrideTrack now sends a tiny, fully anonymous ping (event type + timestamp only) when the app is opened or a walk is logged, so the developer can see whether the app is actually being used. No personal data, device ID or location is ever included, and it can be disabled per-device under Settings → Developer → Exclude This Device From Stats.
+- **Android Release Build Hardening:** Release builds now enable code minification and resource shrinking, reducing app size and improving obfuscation.
+
 **v2.3.6:**
 - **Fixed Stalled Health Connect Imports:** The workout query relied on the plugin's default cap of 100 records, which returns only the *oldest* 100 sessions in range. Once a user had more than 100 workouts in their sync window, no new walks were imported at all. The query now pages through every session, and the window is capped at 90 days to keep it cheap.
 - **Fixed 0 km Imports:** Distance is now read from Health Connect's distance records directly. The plugin requests distance and active calories in a single aggregate call, which always failed with a SecurityException because StrideTrack intentionally does not hold the calories permission — silently discarding the distance along with it.
